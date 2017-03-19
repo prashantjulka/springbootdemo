@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -77,10 +79,19 @@ class Reservation{
 	public void setReservationName(String reservationName) {
 		this.reservationName = reservationName;
 	}
-
-
 }
 
+@Controller
+class MvcReservationController{
+	@Autowired
+	private ReservationRepository reservationRepository;
+	@RequestMapping("/reservations.everest")
+	String reservation(Model model){
+		model.addAttribute("reservations", this.reservationRepository.findAll());
+		return "reservations";//src/main/resources/templates/+X+.html
+	}
+
+}
 
 
 
