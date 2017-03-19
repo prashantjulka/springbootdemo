@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class SpringbootdemoApplication {
 		};
 	}
 }
-
+@RepositoryRestResource
 interface ReservationRepository extends JpaRepository<Reservation, Long>{
 	//select * from reservation where reservation_name=:rn
 	//	@Query(---)
@@ -80,15 +81,6 @@ class Reservation{
 
 }
 
-@RestController
-class ReservationRestController{
-	@Autowired
-	private ReservationRepository reservationRepository;
-	@RequestMapping("/reservations")
-	Collection<Reservation> reservations(){
-		return this.reservationRepository.findAll();
-	}
-}
 
 
 
